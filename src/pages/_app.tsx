@@ -5,6 +5,8 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import Head from "next/head";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -12,7 +14,15 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <Head>
+        <title>Gian's Taekwondo</title>
+        <meta name="description" content="This is the official website of Gian's Taekwondo Gym" />
+        <link rel="shortcut icon" href="test.png" type="image/x-icon" />
+      </Head>
+      
+      <ClerkProvider {...pageProps}>
+        <Component {...pageProps} />
+      </ClerkProvider>
     </SessionProvider>
   );
 };
